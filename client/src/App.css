@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
 }
@@ -41,8 +43,14 @@
 
 
 
+
 div.custom-container {
 	background-color: #242424;
+  overflow-y: scroll;
+  overflow-x: scroll;
+
+
+
 }
 
 svg.custom .node circle {
@@ -56,10 +64,16 @@ svg.custom .node text {
 	background-color: #444;
 	fill: #F4F4F4;
 	text-shadow: 0 1px 4px black;
+
+
 }
 
 svg.custom .node {
 	cursor: pointer;
+
+
+
+
 }
 
 svg.custom path.link {

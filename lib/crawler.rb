@@ -32,7 +32,7 @@ module Crawler
 
       first_level_search
 
-      #second_level_search
+      second_level_search
 
 
 
@@ -54,25 +54,18 @@ module Crawler
         @final[:children] = Array.new
         output.each {|out| @final[:children] << { name: out } }
 
-        #@final["name"] = {"#{@base_keyword} #{@letter}"}
-      #  @final["name"]["children"] = Array.new
 
-        #output.each {|out| @final["name"]["children"] << { keyword: out } }
-
-        #@final["name"] = "#{@base_keyword} #{@letter}"
-
-        #@final["attributes"] = {
-
-
-
-        #@final["#{@base_keyword} #{@letter}"] = output
     end
 
     def second_level_search
+      @first_keywords = [@first_keywords[0]]
 
      @first_keywords.each do |keyword|
         puts "- 2nd level: searching keyword |#{keyword}|"
 
+        #item = @final[:children].select{|name| name[:name] == "best glock airsoft" }[0]
+        item = @final[:children].select{|name| name[:name] == keyword }[0]
+        item[:children] = Array.new
         #search each keyword + 'a', 'b', etc...
         @alphabet.each do |let|
 
@@ -81,12 +74,29 @@ module Crawler
         #search base keyword + 'a' or whatever letter is passed in
           results = Instant::Request.new("#{keyword} #{let}").get
           output = process_results(results, 'second')
-          @final["#{keyword} #{let}"] = output
+
+
+          new_item = {
+            name: "#{keyword} #{let}",
+            children: []
+          }
+          output.each {|out| new_item[:children] << { name: out } }
+
+          item[:children] <<  new_item 
+          #output.each {|out| item[:children] << { name: out } }
+
+          #byebug
+          #byebug
+
+
+
 
           puts "sleeping for #{sleep} seconds"
           sleep sleep
         end
       end
+
+
 
       puts "DONE!!! RESULTS =>"
       puts "first keywords: "

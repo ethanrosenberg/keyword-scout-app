@@ -3,6 +3,7 @@ import React from 'react';
 
 
 import Tree from 'react-tree-graph';
+import ReactDOM from "react-dom";
 
 class HomeContainer extends React.Component {
   constructor() {
@@ -16,7 +17,7 @@ class HomeContainer extends React.Component {
 
 
 
-  componentWillMount() {
+  componentDidMount() {
 
     const headers = {
       method: "GET",
@@ -33,8 +34,17 @@ class HomeContainer extends React.Component {
 
         this.setState({ data: response })
 
+        setTimeout(() => {
+          const node = ReactDOM.findDOMNode(this);
+          const child = node.querySelector('svg');
+                child.setAttribute('width', '5000');
+        }, 0)
 
       })
+
+
+
+
 
 
   }
@@ -52,11 +62,12 @@ class HomeContainer extends React.Component {
     <div className="custom-container">
     	<Tree
     		data={this.state.data}
-    		height={800}
-    		width={400}
+    		height={900}
+    	  width={1150}
     		svgProps={{
-    			className: 'custom'
-    		}}/>
+    			className: 'custom',
+    		}}
+        animated />
     </div>
 
      )
