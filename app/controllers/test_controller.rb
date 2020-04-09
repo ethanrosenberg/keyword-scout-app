@@ -14,12 +14,8 @@ class TestController < ApplicationController
 
 
     base_keyword = "best glock"
-    final = {
-      #base: base_keyword
-    #
-
-    }
-    #keywords = Crawler::Worker.new("best glock", 'a', final).start
+    final = Hash.new
+    keywords = Crawler::Worker.new("best glock", 'a', final).start
 
     #File.write('keywords.yml', final.to_yaml)
 
@@ -27,11 +23,27 @@ class TestController < ApplicationController
     #  f.write(JSON.pretty_generate(final))
     #end
 
-    file = File.read('keywords5.json')
+    #file = File.read('keywords_test.json')
 
      #bodyJson = JSON.parse(file)
-     byebug
-    render json: file
+
+     data = { name: 'Parent',
+                children: [
+                  {
+                  name: 'Child One'
+                  },
+                  {
+                    name: 'Child Two'
+                  }
+               ]
+       }
+
+       #byebug
+
+
+       #byebug
+
+    render json: final
       # Generate output image
       #graph.output( :png => "hello_world.png" )
 

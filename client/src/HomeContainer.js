@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Tree, treeUtil } from 'react-d3-tree';
+
+
+import Tree from 'react-tree-graph';
 
 class HomeContainer extends React.Component {
   constructor() {
@@ -29,8 +31,7 @@ class HomeContainer extends React.Component {
         console.log(response)
         console.log(response)
 
-        this.setState({ data: [response] })
-
+        this.setState({ data: response })
 
 
       })
@@ -42,38 +43,21 @@ class HomeContainer extends React.Component {
 
    render() {
 
-     const myData = this.state.data
-     const myTreeData = [
-       {
-         name: 'Top Level',
-         attributes: {
-           keyA: 'val A',
-           keyB: 'val B',
-           keyC: 'val C',
-         },
-         children: [
-           {
-             name: 'Level 2: A',
-             attributes: {
-               keyA: 'val A',
-               keyB: 'val B',
-               keyC: 'val C',
-             },
-           },
-           {
-             name: 'Level 2: B',
-           },
-         ],
-       },
-     ];
+
 
      return (
 
-       <div id="treeWrapper" style={{width: '70em', height: '50em'}}>
 
-       <Tree data={this.state.data} />
 
-     </div>
+    <div className="custom-container">
+    	<Tree
+    		data={this.state.data}
+    		height={800}
+    		width={400}
+    		svgProps={{
+    			className: 'custom'
+    		}}/>
+    </div>
 
      )
 

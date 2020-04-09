@@ -19,6 +19,8 @@ module Crawler
 
     def start
 
+
+
       # Create two nodes
       #base = @graph.add_nodes( @base_keyword )
 
@@ -48,12 +50,21 @@ module Crawler
         results = Instant::Request.new("#{@base_keyword} #{@letter}").get
         output = process_results(results, 'first')
 
-        @final["name"] = "#{@base_keyword} #{@letter}"
+        @final[:name] = "#{@base_keyword} #{@letter}"
+        @final[:children] = Array.new
+        output.each {|out| @final[:children] << { name: out } }
 
-        @final["attributes"] = {
+        #@final["name"] = {"#{@base_keyword} #{@letter}"}
+      #  @final["name"]["children"] = Array.new
 
-        }
-        output.each {|out| @final["attributes"][out] = '' }
+        #output.each {|out| @final["name"]["children"] << { keyword: out } }
+
+        #@final["name"] = "#{@base_keyword} #{@letter}"
+
+        #@final["attributes"] = {
+
+
+
         #@final["#{@base_keyword} #{@letter}"] = output
     end
 
