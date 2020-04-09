@@ -6,8 +6,9 @@ ruby '2.6.1'
 gem 'typhoeus'
 gem 'dotenv-rails'
 
-
-
+gem 'tree_support'
+gem 'ruby-graphviz'
+gem 'rack-cors'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

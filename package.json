@@ -1,5 +1,7 @@
 {
   "name": "keyword-scout",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "react-d3-tree": "^1.16.1"
+  }
 }
