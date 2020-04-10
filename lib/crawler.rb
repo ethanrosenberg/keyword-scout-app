@@ -58,7 +58,7 @@ module Crawler
     end
 
     def second_level_search
-      @first_keywords = [@first_keywords[0]]
+      @first_keywords = @first_keywords[0..3]
 
      @first_keywords.each do |keyword|
         puts "- 2nd level: searching keyword |#{keyword}|"
@@ -82,7 +82,7 @@ module Crawler
           }
           output.each {|out| new_item[:children] << { name: out } }
 
-          item[:children] <<  new_item 
+          item[:children] <<  new_item
           #output.each {|out| item[:children] << { name: out } }
 
           #byebug

@@ -2,7 +2,7 @@
 
 .App {
   text-align: center;
-
+  background-color: #242424;
 
 }
 
@@ -48,10 +48,6 @@
 
 div.custom-container {
 	background-color: #242424;
-  height: 1000px;
-
-
-
 
 }
 
@@ -62,7 +58,7 @@ svg.custom .node circle {
 }
 
 svg.custom .node text {
-	font-size: 11px;
+	font-size: 14px;
 	background-color: #444;
 	fill: #F4F4F4;
 	text-shadow: 0 1px 4px black;
@@ -82,4 +78,23 @@ svg.custom path.link {
 	fill: none;
 	stroke: #2593B8;
 	stroke-width: 1.5px;
+}
+
+.navbar {
+
+    width: 5000px;
+    position: sticky;
+    top: 0;
+
+ }
+
+ div.custom-container {
+    background-color: #242424;
+    width: 5000px;
+    height: 5050px;
+    padding-top: 50px;
+}
+
+button.btn.btn-outline-info {
+
 }

@@ -41,11 +41,7 @@ class HomeContainer extends React.Component {
 
         this.setState({ data: response.response_data, keywords: response.keywords, loading: false })
 
-        setTimeout(() => {
-          const node = ReactDOM.findDOMNode(this);
-          const child = node.querySelector('svg');
-                child.setAttribute('width', '5000');
-        }, 0)
+
 
       })
 
@@ -74,24 +70,30 @@ class HomeContainer extends React.Component {
 
     <div className="custom-container">
 
-    <CopyToClipboard text={this.state.keywords.toString().split(",").join("\n")} onCopy={() => this.setState({copied: true})}>
-                <Button style={copyStyle} variant="primary" type="submit" size="sm">
-                  Copy To Clipboard
-               </Button>
-             </CopyToClipboard>
+
+
 
     { loading
       ?
       <Loading />
       :
+      <>
       <Tree
         data={this.state.data}
-        height={900}
-        width={1150}
+        height={5000}
+        width={5000}
+        margins={{ bottom : 0, left : 20, right : 500, top : 50}}
         svgProps={{
           className: 'custom',
         }}
-        animated />
+        animated={true} />
+
+        <CopyToClipboard text={this.state.keywords.toString().split(",").join("\n")} onCopy={() => this.setState({copied: true})}>
+                    <Button style={copyStyle} variant="primary" type="submit" size="sm">
+                      Copy To Clipboard
+                   </Button>
+        </CopyToClipboard>
+        </>
 
     }
     </div>
