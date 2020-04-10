@@ -1,10 +1,14 @@
 import React from 'react';
 
 
+import {
+    Button
+} from 'react-bootstrap';
 
 import Tree from 'react-tree-graph';
 import ReactDOM from "react-dom";
 import Loading from './Loading'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 class HomeContainer extends React.Component {
   constructor() {
@@ -13,7 +17,8 @@ class HomeContainer extends React.Component {
     this.state = {
       data: '',
       keywords: '',
-      loading: true
+      loading: true,
+      copied: false
     }
 
   }
@@ -52,17 +57,28 @@ class HomeContainer extends React.Component {
   }
 
 
-
    render() {
 
-     const onClick={() => {navigator.clipboard.writeText(this.state.keywords)}}
+
 
      const loading = this.state.loading
+
+     const copyStyle = {
+        position: 'fixed',
+        bottom:15,
+        right:15
+      };
 
 
      return (
 
     <div className="custom-container">
+
+    <CopyToClipboard text={this.state.keywords.toString().split(",").join("\n")} onCopy={() => this.setState({copied: true})}>
+                <Button style={copyStyle} variant="primary" type="submit" size="sm">
+                  Copy To Clipboard
+               </Button>
+             </CopyToClipboard>
 
     { loading
       ?
