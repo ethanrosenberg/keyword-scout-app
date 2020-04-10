@@ -2,6 +2,8 @@
 
 .App {
   text-align: center;
+
+
 }
 
 .App-logo {
@@ -46,8 +48,8 @@
 
 div.custom-container {
 	background-color: #242424;
-  overflow-y: scroll;
-  overflow-x: scroll;
+  height: 1000px;
+
 
 
 

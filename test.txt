@@ -1,0 +1,5 @@
+setTimeout(() => {
+  const node = ReactDOM.findDOMNode(this);
+  const child = node.querySelector('.svg');
+        child.setAttribute('width', '1150');
+}, 0)

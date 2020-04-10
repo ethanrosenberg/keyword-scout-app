@@ -4,13 +4,16 @@ import React from 'react';
 
 import Tree from 'react-tree-graph';
 import ReactDOM from "react-dom";
+import Loading from './Loading'
 
 class HomeContainer extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      data: ''
+      data: '',
+      keywords: '',
+      loading: true
     }
 
   }
@@ -29,10 +32,9 @@ class HomeContainer extends React.Component {
     fetch('http://localhost:3000/api/v1/new_search', headers)
       .then(r => r.json())
       .then(response => {
-        console.log(response)
-        console.log(response)
+        console.log(response.response_data)
 
-        this.setState({ data: response })
+        this.setState({ data: response.response_data, keywords: response.keywords, loading: false })
 
         setTimeout(() => {
           const node = ReactDOM.findDOMNode(this);
@@ -53,22 +55,31 @@ class HomeContainer extends React.Component {
 
    render() {
 
+     const onClick={() => {navigator.clipboard.writeText(this.state.keywords)}}
+
+     const loading = this.state.loading
 
 
      return (
 
-
-
     <div className="custom-container">
-    	<Tree
-    		data={this.state.data}
-    		height={900}
-    	  width={1150}
-    		svgProps={{
-    			className: 'custom',
-    		}}
+
+    { loading
+      ?
+      <Loading />
+      :
+      <Tree
+        data={this.state.data}
+        height={900}
+        width={1150}
+        svgProps={{
+          className: 'custom',
+        }}
         animated />
+
+    }
     </div>
+
 
      )
 

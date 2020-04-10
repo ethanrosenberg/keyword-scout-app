@@ -43,7 +43,7 @@ class TestController < ApplicationController
 
        #byebug
 
-    render json: final
+    render json: { response_data: final, keywords: keywords }
       # Generate output image
       #graph.output( :png => "hello_world.png" )
 
