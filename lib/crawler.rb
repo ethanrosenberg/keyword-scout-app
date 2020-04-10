@@ -58,7 +58,7 @@ module Crawler
     end
 
     def second_level_search
-      @first_keywords = @first_keywords[0..2]
+      @first_keywords = @first_keywords[0..7]
 
      @first_keywords.each do |keyword|
         puts "- 2nd level: searching keyword |#{keyword}|"
@@ -126,6 +126,66 @@ module Crawler
       end
       output
     end
+
+
+
+  end
+
+  class Beta
+
+    def initialize(base_keyword, keyword, raw_keyword)
+      @base = base_keyword
+      @raw = raw_keyword
+      @keyword = keyword
+
+      @beta_results = []
+
+
+    end
+
+    def start
+
+      breakdown_response = breakdown_keyword
+      byebug
+      breakdown_response[:search_terms].each do |request|
+
+        instant_response = Instant::Request.new(request).get
+        @beta_results.push(*instant_response)
+
+        sleep rand(0.3..0.7)
+      end
+
+      byebug
+    end
+
+    def breakdown_keyword
+
+      if @keyword.start_with?(@base)
+        alphabet = ('a'..'z').to_a
+        terms = []
+        stripped_keyword = @keyword
+        stripped_keyword.slice! @base
+        stripped_keyword.strip!
+        stripped_keyword_words = stripped_keyword.split(" ")
+        keyword_words = @keyword.split(" ")
+
+        builder = ''
+        stripped_keyword_words.each_with_index do |word,index|
+          builder = "#{builder} #{stripped_keyword_words[index]}"
+
+          #add each letter of the alphabet to keyword
+          alphabet.each do |letter|
+            term = "#{@base} #{builder} #{letter}"
+            terms << term.gsub("  ", " ")
+          end
+
+        end
+
+        result = { base: @base, raw_keyword: @raw, words: stripped_keyword_words, search_terms: terms}
+      end
+
+    end
+
 
 
 

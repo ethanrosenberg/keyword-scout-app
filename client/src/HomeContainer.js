@@ -46,10 +46,6 @@ class HomeContainer extends React.Component {
       })
 
 
-
-
-
-
   }
 
 
@@ -57,9 +53,25 @@ class HomeContainer extends React.Component {
 
   const handleBetaClick = event => {
 
-    this.setState({
-      show: true
-    })
+    //this.setState({
+    //  show: true
+    //})
+
+    const headers = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+
+    fetch('http://localhost:3000/api/v1/beta', headers)
+      .then(r => r.json())
+      .then(response => {
+        console.log(response.response_data)
+
+        this.setState({ data: response.response_data, keywords: response.keywords, loading: false })
+
+      })
 
    }
 

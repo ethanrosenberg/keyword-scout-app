@@ -5,6 +5,18 @@ class TestController < ApplicationController
 
   def start
 
+    ##working start
+    base_keyword = "best glock"
+    data_hash = Hash.new
+    #keywords = Crawler::Worker.new("best glock", 'a', data_hash).start
+    #write_output(data_hash)
+    #render json: { response_data: data_hash, keywords: keywords }
+    render json: { response_data: data_hash, keywords: [] }
+    ##working end
+
+
+
+
     #clear files for testing purposes before each new run
     #File.truncate('starts_with_base.txt', 0)
     #File.truncate('doesnt_start_with_base.txt', 0)
@@ -13,37 +25,23 @@ class TestController < ApplicationController
 
 
 
-    base_keyword = "best glock"
-    final = Hash.new
-    keywords = Crawler::Worker.new("best glock", 'a', final).start
 
     #File.write('keywords.yml', final.to_yaml)
 
-    #File.open("kewyords2.json","w") do |f|
-    #  f.write(JSON.pretty_generate(final))
-    #end
+
 
     #file = File.read('keywords_test.json')
 
      #bodyJson = JSON.parse(file)
 
-     data = { name: 'Parent',
-                children: [
-                  {
-                  name: 'Child One'
-                  },
-                  {
-                    name: 'Child Two'
-                  }
-               ]
-       }
+
 
        #byebug
 
 
        #byebug
 
-    render json: { response_data: final, keywords: keywords }
+
       # Generate output image
       #graph.output( :png => "hello_world.png" )
 
@@ -88,6 +86,22 @@ class TestController < ApplicationController
 
     #
 
+  end
+
+  def beta
+
+
+    base_keyword = "best glock"
+    keyword = "best glock adjustable sights"
+    raw = "best glock adjustable sights"
+    res = Crawler::Beta.new(base_keyword, keyword, raw).start
+
+  end
+
+  def write_output(data_hash)
+    File.open("output/kewyords.json","w") do |f|
+      f.write(JSON.pretty_generate(data_hash))
+    end
   end
 
 

@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
     get '/api/v1/new_search', to: 'test#start'
 
+    get '/api/v1/beta', to: 'test#beta'
 
-  get '/test', to: 'test#start'
+    get '/test', to: 'test#start'
+
 
 end

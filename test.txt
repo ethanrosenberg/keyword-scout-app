@@ -14,3 +14,30 @@ setTimeout(() => {
         child.setAttribute('width', '8000');
         child.setAttribute('height', '10000');
 }, 0)
+
+
+
+best glock magazine accessories
+
+1. take base + first word + a
+
+2. take base + first word + second word + a
+
+
+
+builder = "#{base} "
+stripped_keyword_words.each do |word|
+  buidler = "#{builder} #{word}"
+  #test = "#{base} #{word} #{letter}"
+
+  alphabet.each do |letter|
+    #terms << "#{base} #{word} #{letter}"
+    terms << "#{builder} #{letter}"
+  end
+end
+
+
+alphabet.each do |letter|
+       #terms << "#{base} #{word} #{letter}"
+       terms << "#{test} #{letter}"
+     end
