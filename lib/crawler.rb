@@ -58,7 +58,7 @@ module Crawler
     end
 
     def second_level_search
-      @first_keywords = @first_keywords[0..3]
+      @first_keywords = @first_keywords[0..2]
 
      @first_keywords.each do |keyword|
         puts "- 2nd level: searching keyword |#{keyword}|"

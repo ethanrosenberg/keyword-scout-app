@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import {
-    Button
+    Button, Modal
 } from 'react-bootstrap';
 
 import Tree from 'react-tree-graph';
@@ -18,7 +18,8 @@ class HomeContainer extends React.Component {
       data: '',
       keywords: '',
       loading: true,
-      copied: false
+      copied: false,
+      show: false
     }
 
   }
@@ -26,6 +27,7 @@ class HomeContainer extends React.Component {
 
 
   componentDidMount() {
+    ReactDOM.findDOMNode(this).scrollIntoView();
 
     const headers = {
       method: "GET",
@@ -41,8 +43,6 @@ class HomeContainer extends React.Component {
 
         this.setState({ data: response.response_data, keywords: response.keywords, loading: false })
 
-
-
       })
 
 
@@ -55,7 +55,21 @@ class HomeContainer extends React.Component {
 
    render() {
 
+  const handleBetaClick = event => {
 
+    this.setState({
+      show: true
+    })
+
+   }
+
+   const handleBetaClose = event => {
+
+      this.setState({
+        show: false
+      })
+
+    }
 
      const loading = this.state.loading
 
@@ -64,6 +78,14 @@ class HomeContainer extends React.Component {
         bottom:15,
         right:15
       };
+
+      const betaStyle = {
+         backgroundColor: '#961010',
+         borderColor: '#961010',
+         position: 'fixed',
+         bottom:15,
+         left:15
+       };
 
 
      return (
@@ -83,16 +105,35 @@ class HomeContainer extends React.Component {
         height={5000}
         width={5000}
         margins={{ bottom : 0, left : 20, right : 500, top : 50}}
+        duration={500}
         svgProps={{
           className: 'custom',
         }}
         animated={true} />
-
+        <Button onClick={handleBetaClick} style={betaStyle} variant="primary" type="submit" size="sm">
+          Beta
+       </Button>
         <CopyToClipboard text={this.state.keywords.toString().split(",").join("\n")} onCopy={() => this.setState({copied: true})}>
                     <Button style={copyStyle} variant="primary" type="submit" size="sm">
                       Copy To Clipboard
                    </Button>
         </CopyToClipboard>
+
+        <Modal show={this.state.show} onHide={handleBetaClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleBetaClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleBetaClose}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
         </>
 
     }
