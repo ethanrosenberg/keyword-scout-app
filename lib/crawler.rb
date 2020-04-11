@@ -39,7 +39,8 @@ module Crawler
 
 
 
-      c = (@keywords + @first_keywords).uniq
+      c = (@keywords.push(*@first_keywords)).uniq
+
 
     end
 
@@ -58,7 +59,7 @@ module Crawler
     end
 
     def second_level_search
-      @first_keywords = @first_keywords[0..7]
+      @first_keywords = @first_keywords[0..1]
 
      @first_keywords.each do |keyword|
         puts "- 2nd level: searching keyword |#{keyword}|"

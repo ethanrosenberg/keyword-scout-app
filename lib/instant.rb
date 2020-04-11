@@ -24,18 +24,20 @@ module Instant
 
       Typhoeus::Config.user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0'
       Typhoeus::Config.verbose = false
-      
+
       options = {
         proxy: 'zproxy.lum-superproxy.io:22225',
-        proxyuserpwd: ENV['LUMEN_USER'] + ":" + ENV['LUMEN_PASS'],
+        proxyuserpwd: "#{ENV['LUMEN_USER']}:#{ENV['LUMEN_PASS']}" ,
         :headers => {"User-Agent" => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0'}
       }
       #http_proxyaddr: 'zproxy.lum-superproxy.io',
       #http_proxyport: '22225',
       request = Typhoeus::Request.new(
-        BASE_URL + @query,
+        "#{BASE_URL}#{@query}",
         options
       ).run
+
+
 
       JSON.parse(request.response_body)[1].uniq
 
