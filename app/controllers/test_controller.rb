@@ -94,7 +94,11 @@ class TestController < ApplicationController
     base_keyword = "best glock"
     keyword = "best glock adjustable sights"
     raw = "best glock adjustable sights"
-    res = Crawler::Beta.new(base_keyword, keyword, raw).start
+    #res = Crawler::Beta.new(base_keyword, keyword, raw).start
+    #write_output(res)
+    #render json: { beta_data: res }
+
+    render json: { starting_keyword: keyword, beta_data: ["test keyword"] }
 
   end
 

@@ -146,16 +146,18 @@ module Crawler
     def start
 
       breakdown_response = breakdown_keyword
-      byebug
+
       breakdown_response[:search_terms].each do |request|
 
         instant_response = Instant::Request.new(request).get
         @beta_results.push(*instant_response)
 
-        sleep rand(0.3..0.7)
+        sleep rand(0.2..0.5)
       end
 
-      byebug
+      @beta_results
+
+
     end
 
     def breakdown_keyword
@@ -181,7 +183,7 @@ module Crawler
 
         end
 
-        result = { base: @base, raw_keyword: @raw, words: stripped_keyword_words, search_terms: terms}
+        result = { base: @base, raw_keyword: @raw, words: stripped_keyword_words, search_terms: terms.uniq}
       end
 
     end

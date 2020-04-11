@@ -2,7 +2,7 @@ import React from 'react';
 
 
 import {
-    Button, Modal
+    Button, Modal, Form
 } from 'react-bootstrap';
 
 import Tree from 'react-tree-graph';
@@ -17,6 +17,8 @@ class HomeContainer extends React.Component {
     this.state = {
       data: '',
       keywords: '',
+      beta_data: '',
+      beta_starting_keyword: '',
       loading: true,
       copied: false,
       show: false
@@ -53,9 +55,9 @@ class HomeContainer extends React.Component {
 
   const handleBetaClick = event => {
 
-    //this.setState({
-    //  show: true
-    //})
+    this.setState({
+      show: true
+    })
 
     const headers = {
       method: "GET",
@@ -67,9 +69,12 @@ class HomeContainer extends React.Component {
     fetch('http://localhost:3000/api/v1/beta', headers)
       .then(r => r.json())
       .then(response => {
-        console.log(response.response_data)
-
-        this.setState({ data: response.response_data, keywords: response.keywords, loading: false })
+        console.log(response.beta_data)
+        console.log(response.starting_keyword)
+        this.setState({
+          beta_data: response.beta_data,
+          beta_starting_keyword: response.starting_keyword
+        })
 
       })
 
@@ -131,11 +136,17 @@ class HomeContainer extends React.Component {
                    </Button>
         </CopyToClipboard>
 
-        <Modal show={this.state.show} onHide={handleBetaClose}>
+        <Modal size="lg" show={this.state.show} onHide={handleBetaClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Modal heading</Modal.Title>
+              <Modal.Title>Beta Results: {this.state.beta_starting_keyword}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Body>
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Keywords Found: {this.state.beta_data.length}</Form.Label>
+              <Form.Control as="textarea" rows="3" value ={this.state.beta_data.toString().split(",").join("\n")}/>
+            </Form.Group>
+
+              </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleBetaClose}>
                 Close
