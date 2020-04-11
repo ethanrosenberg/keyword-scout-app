@@ -19,6 +19,7 @@ class HomeContainer extends React.Component {
       keywords: '',
       beta_data: '',
       beta_starting_keyword: '',
+      beta_loading: true,
       loading: true,
       copied: false,
       show: false
@@ -73,7 +74,8 @@ class HomeContainer extends React.Component {
         console.log(response.starting_keyword)
         this.setState({
           beta_data: response.beta_data,
-          beta_starting_keyword: response.starting_keyword
+          beta_starting_keyword: response.starting_keyword,
+          beta_loading: false
         })
 
       })
@@ -103,6 +105,11 @@ class HomeContainer extends React.Component {
          bottom:15,
          left:15
        };
+
+       const betaLoadingStyle = {
+          height: 200
+
+        };
 
 
      return (
@@ -136,30 +143,46 @@ class HomeContainer extends React.Component {
                    </Button>
         </CopyToClipboard>
 
-        <Modal size="lg" show={this.state.show} onHide={handleBetaClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Beta Results: {this.state.beta_starting_keyword}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-            <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Keywords Found: {this.state.beta_data.length}</Form.Label>
-              <Form.Control as="textarea" rows="3" value ={this.state.beta_data.toString().split(",").join("\n")}/>
-            </Form.Group>
 
-              </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleBetaClose}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleBetaClose}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
 
         </>
 
     }
+
+
+
+    <Modal size="lg" show={this.state.show} onHide={handleBetaClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Beta Results: {this.state.beta_starting_keyword}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        {
+          this.state.beta_loading == false
+          ?
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Keywords Found: {this.state.beta_data.length}</Form.Label>
+            <Form.Control as="textarea" rows="20" value ={this.state.beta_data.toString().split(",").join("\n")}/>
+          </Form.Group>
+          :
+            <div className="tempLoading" style={betaLoadingStyle}>
+
+            <Loading />
+            </div>
+
+
+
+        }
+          </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleBetaClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleBetaClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
 
 

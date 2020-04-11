@@ -8,10 +8,10 @@ class TestController < ApplicationController
     ##working start
     base_keyword = "best glock"
     data_hash = Hash.new
-    #keywords = Crawler::Worker.new("best glock", 'a', data_hash).start
-    #write_output(data_hash)
-    #render json: { response_data: data_hash, keywords: keywords }
-    render json: { response_data: data_hash, keywords: [] }
+    keywords = Crawler::Worker.new("best glock", 'a', data_hash).start
+    write_output(data_hash)
+    render json: { response_data: data_hash, keywords: keywords }
+    #render json: { response_data: data_hash, keywords: [] }
     ##working end
 
 
@@ -94,11 +94,12 @@ class TestController < ApplicationController
     base_keyword = "best glock"
     keyword = "best glock adjustable sights"
     raw = "best glock adjustable sights"
-    #res = Crawler::Beta.new(base_keyword, keyword, raw).start
-    #write_output(res)
+    res = Crawler::Beta.new(base_keyword, keyword, raw).start
+    write_output(res)
     #render json: { beta_data: res }
-
-    render json: { starting_keyword: keyword, beta_data: ["test keyword"] }
+    render json: { starting_keyword: keyword, beta_data: res }
+    #sleep 4
+    #render json: { starting_keyword: keyword, beta_data: ["test keyword"] }
 
   end
 
